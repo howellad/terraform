@@ -17,6 +17,19 @@ resource "aws_dynamodb_table" "Client-Store-table" {
   hash_key = "ClientId"
 }
 
+resource "aws_dynamodb_table" "Resource-Store-table" {
+  name = "Player-Auth-Resource-Store"
+  billing_mode = "PROVISIONED"
+  read_capacity= "20"
+  write_capacity= "20"
+  attribute {
+    name = "ResourceId"
+    type = "S"
+  }
+  hash_key = "ResourceId"
+}
+
+
 resource "aws_dynamodb_table" "Persistant-Grant-store-table" {
   name = "Player-Auth-Persistant-Grant-Store"
   billing_mode = "PROVISIONED"
