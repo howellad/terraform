@@ -5,28 +5,28 @@ provider "aws" {
     profile = "${var.profile}"
 }
 
-resource "aws_dynamodb_table" "Client-Store-table" {
-  name = "Player-Auth-Client-Store"
+resource "aws_dynamodb_table" "User-Store-table" {
+  name = "Player-Auth-User-Store"
   billing_mode = "PROVISIONED"
-  read_capacity= "20"
-  write_capacity= "20"
+  read_capacity= "10"
+  write_capacity= "10"
   attribute {
-    name = "ClientId"
+    name = "UserId"
     type = "S"
   }
-  hash_key = "ClientId"
+  hash_key = "UserId"
 }
 
-resource "aws_dynamodb_table" "Resource-Store-table" {
-  name = "Player-Auth-Resource-Store"
+resource "aws_dynamodb_table" "AccessToken-Store-table" {
+  name = "Player-Auth-AccessToken-Store"
   billing_mode = "PROVISIONED"
-  read_capacity= "20"
-  write_capacity= "20"
+  read_capacity= "10"
+  write_capacity= "10"
   attribute {
-    name = "ResourceId"
+    name = "AccessTokenId"
     type = "S"
   }
-  hash_key = "ResourceId"
+  hash_key = "AccessTokenId"
 }
 
 
@@ -36,8 +36,8 @@ resource "aws_dynamodb_table" "Persistant-Grant-store-table" {
   read_capacity= "20"
   write_capacity= "20"
   attribute {
-    name = "TokenId"
+    name = "GrantId"
     type = "S"
   }
-  hash_key = "TokenId"
+  hash_key = "GrantId"
 }
