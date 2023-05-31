@@ -15,6 +15,10 @@ resource "aws_dynamodb_table" "User-Store-table" {
     type = "S"
   }
   hash_key = "UserId"
+  tags = {
+    team = "Platform"
+    Project = "Player-Authentication"
+  }
 }
 
 resource "aws_dynamodb_table" "AccessToken-Store-table" {
@@ -27,6 +31,10 @@ resource "aws_dynamodb_table" "AccessToken-Store-table" {
     type = "S"
   }
   hash_key = "AccessTokenId"
+  tags = {
+    team = "Platform"
+    Project = "Player-Authentication"
+  }
 }
 
 
@@ -40,4 +48,8 @@ resource "aws_dynamodb_table" "Persistant-Grant-store-table" {
     type = "S"
   }
   hash_key = "GrantId"
+  tags = {
+    team = "Platform"
+    Project = "Player-Authentication"
+  }
 }

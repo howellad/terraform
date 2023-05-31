@@ -11,7 +11,7 @@ resource "aws_db_subnet_group" "player-auth-db-subnet" {
   
   tags = {
     team = "Platform"
-    Name = "Platform-player-auth"
+    Project = "Player-Authentication"
   }
 }
 
@@ -28,4 +28,8 @@ resource "aws_db_instance" "default" {
   parameter_group_name = "default.mysql5.7"
   skip_final_snapshot  = true
   db_subnet_group_name = "platform-player-auth"
+  tags = {
+    team = "Platform"
+    Project = "Player-Authentication"
+  }
 }
