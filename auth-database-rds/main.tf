@@ -5,31 +5,26 @@ provider "aws" {
     proflie    = "${var.profile}"
 }
 
-resource "aws_db_subnet_group" "player-auth-db-subnet" {
-  name       = "player-auth-db-subnet"
-  subnet_ids = ["subnet-0379cfc4648718bc3", "subnet-02ae4f4268107c2b1", "subnet-012a534213cc034ec"]
-  
-  tags = {
-    team = "Platform"
-    Project = "Player-Authentication"
-  }
+resource "aws_db_instance" "aurora" {
+  allocated_storage    = 20
+  engine               = "aurora-mysql"
+  engine_version       = "5.7.mysql_aurora.2.08.0"
+  instance_class       = "db.t3.small"
+  name                 = "my-identity-server-db"
+  username             = "admin"
+  password             = "mystrongpassword"
+  publicly_accessible = false
+  skip_final_snapshot = true
+  vpc_security_group_ids = [aws_security_group.aurora.id]
 }
 
-resource "aws_db_instance" "default" {
-  db_name = "playerauthdb"
-  identifier = "platform-player-auth-rds"
-  publicly_accessible = true
-  allocated_storage = 20
-  engine               = "mysql"
-  engine_version       = "5.7"
-  instance_class       = "db.t3.micro"
-  username             = "root"
-  password             = "password"
-  parameter_group_name = "default.mysql5.7"
-  skip_final_snapshot  = true
-  db_subnet_group_name = "platform-player-auth"
-  tags = {
-    team = "Platform"
-    Project = "Player-Authentication"
+resource "aws_security_group" "aurora" {
+  name        = "aurora-sg"
+  description = "Security group for Aurora"
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
